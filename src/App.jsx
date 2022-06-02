@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ColorfulMessage from "./components/ColorfulMessage";
 
 const App = () => {
@@ -11,6 +11,19 @@ const App = () => {
   const onClickSwitchShowFlag = () => {
     setFaceShowFlag(!faceShowFlag); //true,falseを反転させる
   }
+
+  //useEffectの第2引数に配列を空で入れることで最初の１回だけ通したい処理を書くことができる
+  //stateが変わるたびに変更されない
+  //第2引数の配列の中に変数を入れるとその変数に変化があった時だけ動く
+  useEffect(() => {
+    //3の倍数の時だけ顔文字を表示する
+    if (num % 3 === 0) {
+      faceShowFlag || setFaceShowFlag(true); //左がfalseだと
+    } else {
+      faceShowFlag && setFaceShowFlag(false); //左がtrueだと
+    }
+  }, [num]);
+
 
 
   return (
